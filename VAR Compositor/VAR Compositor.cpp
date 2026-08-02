@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
     // uridecodebin requires a valid URI format.
     // For local Windows files, use file:/// followed by the absolute path with forward slashes.
     std::string template_uri = "C:/Temp/VarClear.mp4";
-    std::string overlay_text = "CUSTOM TEXT";
+    std::string overlay_text = "MANCAM OFFSIDE";
     std::string overlay_text_escaped = escape_for_gst_string(overlay_text);
 
     gchar* absolute_path = g_canonicalize_filename(template_uri.c_str(), NULL);
@@ -82,10 +82,10 @@ int main(int argc, char* argv[]) {
     // Build the pipeline string replacing filesrc/decodebin with uridecodebin
     std::string pipeline_desc =
         "glvideomixer name=mix background=1 ! glcolorconvert ! gldownload ! videoconvert "
-        "! textoverlay name=bottom_text valignment=bottom halignment=center ypad=24 draw-shadow=true font-desc=\"Sans 36\" text=\"" + overlay_text_escaped + "\" "
+        "! textoverlay name=bottom_text valignment=bottom halignment=left xpad=370 ypad=150 draw-outline=false draw-shadow=false font-desc=\"sans 14 bold\" text=\"" + overlay_text_escaped + "\" "
         "! tee name=t "
         "t. ! queue ! videoconvert ! autovideosink "
-        "t. ! queue ! videoconvert ! video/x-raw,format=UYVY,width=1920,height=1080,framerate=50/1,interlace-mode=progressive ! decklinkvideosink device-number=3 mode=1080i50 "
+        "t. ! queue ! videoconvert ! decklinkvideosink device-number=3 mode=1080i50 "
         
 		// file source for the background template video
         "uridecodebin name=bg_src uri=\"" + std::string(uri) + "\" "

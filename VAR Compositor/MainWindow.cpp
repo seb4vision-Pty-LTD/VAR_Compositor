@@ -4,8 +4,10 @@
 
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QLineEdit>
 #include <QListWidget>
 #include <QListWidgetItem>
+#include <QPushButton>
 #include <QStringList>
 #include <QVBoxLayout>
 
@@ -19,6 +21,13 @@ MainWindow::MainWindow(PipelineController& controller, QWidget* parent)
 
 	auto* quickTextLabel = new QLabel("Default Text", this);
 	leftPanelLayout->addWidget(quickTextLabel);
+
+	auto* customTextInput = new QLineEdit(this);
+	customTextInput->setPlaceholderText("Type custom text");
+	leftPanelLayout->addWidget(customTextInput);
+
+	auto* addCustomTextButton = new QPushButton("Add Text", this);
+	leftPanelLayout->addWidget(addCustomTextButton);
 
 	const QStringList defaultTexts{
 		"RED CARD",
@@ -48,6 +57,21 @@ MainWindow::MainWindow(PipelineController& controller, QWidget* parent)
 			controller_.setOverlayText(item->text().toStdString());
 		}
 		});
+
+	auto addCustomText = [this, customTextInput]() {
+		const QString customText = customTextInput->text().trimmed();
+		if (customText.isEmpty()) {
+			return;
+		}
+
+		textListWidget_->addItem(customText);
+		textListWidget_->setCurrentRow(textListWidget_->count() - 1);
+		controller_.setOverlayText(customText.toStdString());
+		customTextInput->clear();
+	};
+
+	connect(addCustomTextButton, &QPushButton::clicked, this, addCustomText);
+	connect(customTextInput, &QLineEdit::returnPressed, this, addCustomText);
 
 	if (textListWidget_->count() > 0) {
 		textListWidget_->setCurrentRow(0);

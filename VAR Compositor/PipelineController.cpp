@@ -71,7 +71,7 @@ void PipelineController::configureMixerPad(GstElement* mixer, const gchar* padNa
 std::string PipelineController::buildPipelineDescription(const std::string& uri, const std::string& overlayText) const {
 	return
 		"glvideomixer name=mix background=1 ! glcolorconvert ! gldownload ! videoconvert "
-		"! textoverlay name=bottom_text valignment=bottom halignment=left xpad=370 ypad=150 draw-outline=false draw-shadow=false font-desc=\"sans 14 bold\" text=\"" + overlayText + "\" "
+		"! textoverlay name=bottom_text valignment=bottom halignment=left xpad=370 ypad=150 draw-outline=false draw-shadow=false font-desc=\"sans 26 bold\" text=\"" + overlayText + "\" "
 		"! tee name=t "
 		"t. ! queue ! videoconvert ! d3d11videosink name=preview_sink sync=false "
 		"t. ! queue ! videoconvert ! decklinkvideosink device-number=3 mode=1080i50 "

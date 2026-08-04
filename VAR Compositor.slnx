@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="VAR Compositor/VAR Compositor.vcxproj" />
+  <Project Path="VAR Compositor/VAR Compositor.vcxproj" Id="dba6bddf-c2d1-48ae-9551-7c6d3e662a9a" />
 </Solution>

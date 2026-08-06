@@ -12,12 +12,28 @@
 #include <QVBoxLayout>
 
 MainWindow::MainWindow(PipelineController& controller, QWidget* parent)
-	: QWidget(parent), controller_(controller), previewWidget_(new QWidget(this)), textListWidget_(new QListWidget(this)) {
+	: QWidget(parent),
+	controller_(controller),
+	previewWidget_(new QWidget(this)),
+	textListWidget_(new QListWidget(this)),
+	varModeButton_(new QPushButton("VAR", this)),
+	programModeButton_(new QPushButton("Program", this)) {
 	setWindowTitle("VAR Compositor");
 
 	auto* rootLayout = new QHBoxLayout(this);
 	auto* leftPanelLayout = new QVBoxLayout();
 	auto* rightPanelLayout = new QVBoxLayout();
+
+	auto* modeLabel = new QLabel("Output Mode", this);
+	leftPanelLayout->addWidget(modeLabel);
+
+	varModeButton_->setCheckable(true);
+	programModeButton_->setCheckable(true);
+
+	auto* modeButtonsLayout = new QHBoxLayout();
+	modeButtonsLayout->addWidget(varModeButton_);
+	modeButtonsLayout->addWidget(programModeButton_);
+	leftPanelLayout->addLayout(modeButtonsLayout);
 
 	auto* quickTextLabel = new QLabel("Default Text", this);
 	leftPanelLayout->addWidget(quickTextLabel);
@@ -52,6 +68,18 @@ MainWindow::MainWindow(PipelineController& controller, QWidget* parent)
 	rootLayout->addLayout(leftPanelLayout);
 	rootLayout->addLayout(rightPanelLayout, 1);
 
+	connect(varModeButton_, &QPushButton::clicked, this, [this]() {
+		if (controller_.setMode(PipelineMode::Var)) {
+			syncModeUi();
+		}
+	});
+
+	connect(programModeButton_, &QPushButton::clicked, this, [this]() {
+		if (controller_.setMode(PipelineMode::Program)) {
+			syncModeUi();
+		}
+	});
+
 	connect(textListWidget_, &QListWidget::itemClicked, this, [this](QListWidgetItem* item) {
 		if (item) {
 			controller_.setOverlayText(item->text().toStdString());
@@ -76,8 +104,17 @@ MainWindow::MainWindow(PipelineController& controller, QWidget* parent)
 	if (textListWidget_->count() > 0) {
 		textListWidget_->setCurrentRow(0);
 	}
+
+	syncModeUi();
 }
 
 WId MainWindow::previewWindowId() const {
 	return previewWidget_->winId();
+}
+
+void MainWindow::syncModeUi() {
+	const bool isVarMode = controller_.mode() == PipelineMode::Var;
+	varModeButton_->setChecked(isVarMode);
+	programModeButton_->setChecked(!isVarMode);
+	textListWidget_->setEnabled(isVarMode);
 }

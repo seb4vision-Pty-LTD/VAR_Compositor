@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
 	QApplication app(argc, argv);
 
 	const std::string templateUri = "C:/Temp/VAR.mp4";
-	const std::string initialOverlayText = "RED CARD";
+	const std::string initialOverlayText = " ";
 
 	PipelineController pipelineController;
 	if (!pipelineController.initialize(templateUri, initialOverlayText)) {

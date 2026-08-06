@@ -46,6 +46,7 @@ MainWindow::MainWindow(PipelineController& controller, QWidget* parent)
 	leftPanelLayout->addWidget(addCustomTextButton);
 
 	const QStringList defaultTexts{
+		"(Clear Overlay)",
 		"RED CARD",
 		"GOAL",
 		"VAR REVIEW FILES",
@@ -82,13 +83,21 @@ MainWindow::MainWindow(PipelineController& controller, QWidget* parent)
 
 	connect(textListWidget_, &QListWidget::itemClicked, this, [this](QListWidgetItem* item) {
 		if (item) {
-			controller_.setOverlayText(item->text().toStdString());
+			if (item->text() == "(Clear Overlay)") {
+				controller_.setOverlayText("");
+			}
+			else {
+				controller_.setOverlayText(item->text().toStdString());
+			}
 		}
 		});
 
 	auto addCustomText = [this, customTextInput]() {
 		const QString customText = customTextInput->text().trimmed();
 		if (customText.isEmpty()) {
+			controller_.setOverlayText("");
+			textListWidget_->clearSelection();
+			customTextInput->clear();
 			return;
 		}
 

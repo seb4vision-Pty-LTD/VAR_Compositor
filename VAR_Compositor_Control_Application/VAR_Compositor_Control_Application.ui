@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UI version="4.0" >
+ <class>VAR_Compositor_Control_ApplicationClass</class>
+ <widget class="QMainWindow" name="VAR_Compositor_Control_ApplicationClass" >
+  <property name="objectName" >
+   <string notr="true">VAR_Compositor_Control_ApplicationClass</string>
+  </property>
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>VAR_Compositor_Control_Application</string>
+  </property>  <widget class="QMenuBar" name="menuBar" />
+  <widget class="QToolBar" name="mainToolBar" />
+  <widget class="QWidget" name="centralWidget" />
+  <widget class="QStatusBar" name="statusBar" />
+ </widget>
+ <layoutDefault spacing="6" margin="11" />
+ <pixmapfunction></pixmapfunction>
+ <resources>
+   <include location="VAR_Compositor_Control_Application.qrc"/>
+ </resources>
+ <connections/>
+</UI>

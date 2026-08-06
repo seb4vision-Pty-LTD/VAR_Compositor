@@ -37,6 +37,7 @@ VAR_Compositor_Control_Application::~VAR_Compositor_Control_Application()
 void VAR_Compositor_Control_Application::buildLayout() {
     auto* central = new QWidget(this);
     auto* rootLayout = new QHBoxLayout(central);
+    rootLayout->setSpacing(14);
 
     auto* leftLayout = new QVBoxLayout();
     auto* listLabel = new QLabel("Custom Texts", central);
@@ -55,6 +56,12 @@ void VAR_Compositor_Control_Application::buildLayout() {
     auto* gridLayout = new QGridLayout();
     gridLayout->setHorizontalSpacing(14);
     gridLayout->setVerticalSpacing(14);
+    gridLayout->setContentsMargins(0, 0, 0, 0);
+
+    for (int index = 0; index < 3; ++index) {
+        gridLayout->setColumnStretch(index, 1);
+        gridLayout->setRowStretch(index, 1);
+    }
 
     addGridButton(gridLayout, 0, 0, "RED CARD CHECK", "TEXT RED CARD CHECK");
     addGridButton(gridLayout, 0, 1, "GOAL CHECK", "TEXT GOAL CHECK");
@@ -127,7 +134,8 @@ void VAR_Compositor_Control_Application::buildMenu() {
 
 void VAR_Compositor_Control_Application::addGridButton(QGridLayout* layout, int row, int col, const QString& label, const QString& command) {
     auto* button = new QPushButton(label, this);
-    button->setMinimumSize(220, 120);
+    button->setMinimumSize(160, 90);
+    button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     button->setStyleSheet("font-size: 20px; font-weight: 700;");
     layout->addWidget(button, row, col);
 

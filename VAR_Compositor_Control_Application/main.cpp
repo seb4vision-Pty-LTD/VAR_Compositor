@@ -5,6 +5,6 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     VAR_Compositor_Control_Application window;
-    window.show();
+    window.showMaximized();
     return app.exec();
 }

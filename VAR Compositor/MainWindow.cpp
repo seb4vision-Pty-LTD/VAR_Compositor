@@ -116,5 +116,4 @@ void MainWindow::syncModeUi() {
 	const bool isVarMode = controller_.mode() == PipelineMode::Var;
 	varModeButton_->setChecked(isVarMode);
 	programModeButton_->setChecked(!isVarMode);
-	textListWidget_->setEnabled(isVarMode);
 }

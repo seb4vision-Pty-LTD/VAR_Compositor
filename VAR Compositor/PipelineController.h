@@ -44,6 +44,6 @@ private:
 
 	bool rebuildActivePipeline();
 	std::string buildVarPipelineDescription(const std::string& uri, const std::string& overlayText) const;
-	std::string buildProgramPipelineDescription(const std::string& uri) const;
+	std::string buildProgramPipelineDescription(const std::string& uri, const std::string& overlayText) const;
 	void releaseResources();
 };

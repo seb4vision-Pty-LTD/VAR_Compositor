@@ -111,9 +111,10 @@ std::string PipelineController::buildVarPipelineDescription(const std::string& u
 		"glupload ! glcolorconvert ! video/x-raw(memory:GLMemory),format=RGBA,height=1080,width=1920,framerate=50/1 ! mix.sink_3 ";
 }
 
-std::string PipelineController::buildProgramPipelineDescription(const std::string& uri) const {
+std::string PipelineController::buildProgramPipelineDescription(const std::string& uri, const std::string& overlayText) const {
 	return
 		"glvideomixer name=mix background=0 ! glcolorconvert ! gldownload ! videoconvert "
+		"! textoverlay name=bottom_text valignment=top halignment=left xpad=180 ypad=950 draw-outline=false draw-shadow=false font-desc=\"Sans bold 12\" text=\"" + overlayText + "\" "
 		"! tee name=t "
 		"t. ! queue ! videoconvert ! d3d11videosink name=preview_sink sync=false "
 		"t. ! queue ! videoconvert ! decklinkvideosink device-number=3 mode=1080i50 "
@@ -146,7 +147,7 @@ bool PipelineController::rebuildActivePipeline() {
 		pipelineDesc = buildVarPipelineDescription(templateUri_, escapeForGstString(overlayText_));
 	}
 	else {
-		pipelineDesc = buildProgramPipelineDescription(templateBugUri_);
+		pipelineDesc = buildProgramPipelineDescription(templateBugUri_, escapeForGstString(overlayText_));
 	}
 
 	GError* error = nullptr;

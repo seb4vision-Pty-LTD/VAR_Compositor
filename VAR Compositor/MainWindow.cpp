@@ -121,6 +121,10 @@ WId MainWindow::previewWindowId() const {
 	return previewWidget_->winId();
 }
 
+void MainWindow::refreshModeUi() {
+	syncModeUi();
+}
+
 void MainWindow::syncModeUi() {
 	const bool isVarMode = controller_.mode() == PipelineMode::Var;
 	varModeButton_->setChecked(isVarMode);

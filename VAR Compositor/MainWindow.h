@@ -11,6 +11,7 @@ public:
 	explicit MainWindow(PipelineController& controller, QWidget* parent = nullptr);
 
 	WId previewWindowId() const;
+	void refreshModeUi();
 
 private:
 	PipelineController& controller_;

@@ -3,6 +3,9 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path="Readme.md" />
+  </Folder>
   <Project Path="VAR Compositor/VAR Compositor.vcxproj" Id="dba6bddf-c2d1-48ae-9551-7c6d3e662a9a" />
   <Project Path="VAR_Compositor_Control_Application/VAR_Compositor_Control_Application.vcxproj" Id="d9517d8e-1363-43e7-9618-0317840fe98b">
     <Platform Project="x64" />

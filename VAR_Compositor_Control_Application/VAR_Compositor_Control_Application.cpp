@@ -15,10 +15,18 @@
 #include <QToolTip>
 #include <QVBoxLayout>
 
+namespace {
+QString resolveServerHost()
+{
+    const QString envHost = qEnvironmentVariable("VAR_CONTROL_IP").trimmed();
+    return envHost.isEmpty() ? "localhost" : envHost;
+}
+}
+
 VAR_Compositor_Control_Application::VAR_Compositor_Control_Application(QWidget *parent)
     : QMainWindow(parent),
     customTextList_(nullptr),
-    serverHost_("127.0.0.1"),
+    serverHost_(resolveServerHost()),
     serverPort_(5000)
 {
     ui.setupUi(this);
